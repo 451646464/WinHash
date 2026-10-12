@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Encryption &amp; Hash Algorithm Library — WinHash#</title>
+  <meta name="description" content="A complete, filterable reference of every cipher and hash in WinHash — AES-256, ChaCha20, RSA, classical ciphers, MD5, SHA-2, SHA3 and checksums — with clear security levels.">
+  <meta name="theme-color" content="#07070a">
+  <link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="site-header"></div>
+
+  <main class="page-main page-body" id="main">
+    <section class="section">
+      <div class="container">
+        <div class="section-head reveal" data-reveal>
+          <span class="kicker">Reference</span>
+          <h1 class="section-title">Algorithm <span class="accent">library</span></h1>
+          <p class="section-sub">Every cipher and hash WinHash ships with, what it is good for, and whether you should trust it today. Use the filters to narrow the list.</p>
+        </div>
+
+        <div class="filter-bar reveal" data-reveal id="filterBar">
+          <button class="active" data-filter="all">All</button>
+          <button data-filter="modern">Modern encryption</button>
+          <button data-filter="classical">Classical ciphers</button>
+          <button data-filter="hash">Hash algorithms</button>
+          <button data-filter="checksum">Checksums</button>
+        </div>
+
+        <div class="grid grid-3" id="algoGrid"></div>
+
+        <div class="callout warn mt-3"><strong>Choosing safely:</strong> for real-world encryption use <strong>AES-256-GCM</strong> (or ChaCha20-Poly1305 where available) with a strong password. Classical ciphers are for learning; MD5 and SHA-1 are broken for security; CRC32 and FNV-1a are checksums, not protection.</div>
+
+        <div class="divider"></div>
+
+        <h2 class="section-title" style="font-size:26px">Security levels at a glance</h2>
+        <div class="table-wrap mt-2">
+          <table class="table">
+            <thead><tr><th>Level</th><th>Meaning</th><th>Examples</th></tr></thead>
+            <tbody>
+              <tr><td><span class="badge badge-strong">Strong</span></td><td>Safe for protecting real data today.</td><td>AES-256-GCM, ChaCha20-Poly1305, RSA-OAEP-2048+, SHA-256, SHA3-256</td></tr>
+              <tr><td><span class="badge badge-medium">Moderate</span></td><td>Usable but with caveats — prefer stronger options.</td><td>WinHash Hybrid, RIPEMD-160, RSA-1024</td></tr>
+              <tr><td><span class="badge badge-weak">Weak</span></td><td>Educational or legacy only — do not rely on it.</td><td>Caesar, Vigenère, Rail Fence, XOR, SHA-1, MD5</td></tr>
+              <tr><td><span class="badge badge-none">Checksum</span></td><td>Detects accidental errors, provides no secrecy.</td><td>CRC32, FNV-1a, Base64</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+  <noscript><div class="noscript-note">WinHash needs JavaScript to run.</div></noscript>
+
+  <script src="assets/js/utils.js"></script>
+  <script src="assets/js/hashes.js"></script>
+  <script src="assets/js/classical.js"></script>
+  <script src="assets/js/modern.js"></script>
+  <script src="assets/js/chrome.js"></script>
+  <script src="assets/js/pages/algorithms.js"></script>
+</body>
+</html>

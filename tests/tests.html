@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WinHash — Unit Tests</title>
+  <style>
+    body { font-family: Consolas, monospace; background:#0b0b0d; color:#eee; padding:24px; direction:ltr; }
+    h1 { color:#ff2d3f; }
+    .pass { color:#39d98a; }
+    .fail { color:#ff4d5e; font-weight:bold; }
+    .meta { color:#888; margin-bottom:16px; }
+    li { margin:2px 0; }
+    #summary { font-size:20px; padding:12px 16px; border:1px solid #333; display:inline-block; margin-bottom:16px; }
+  </style>
+</head>
+<body>
+  <h1>WinHash Test Suite</h1>
+  <div id="summary">Running…</div>
+  <div class="meta" id="meta"></div>
+  <ul id="list"></ul>
+
+  <script src="../assets/js/utils.js"></script>
+  <script src="../assets/js/hashes.js"></script>
+  <script src="../assets/js/classical.js"></script>
+  <script src="../assets/js/modern.js"></script>
+  <script src="vectors.js"></script>
+  <script src="tests.js"></script>
+</body>
+</html>

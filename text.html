@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Encrypt Text Online — WinHash#</title>
+  <meta name="description" content="Encrypt and decrypt text instantly in your browser. Classical ciphers, AES-256-GCM and RSA-OAEP — private, free and 100% client-side.">
+  <meta name="theme-color" content="#07070a">
+  <link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="site-header"></div>
+
+  <main class="page-main page-body" id="main">
+    <section class="section">
+      <div class="container">
+        <div class="section-head reveal" data-reveal>
+          <span class="kicker">Text encryption</span>
+          <h1 class="section-title">Encrypt &amp; decrypt <span class="accent">text</span></h1>
+          <p class="section-sub">Type or paste your message, pick a cipher, and process it instantly. Everything runs in this tab — your text is never sent anywhere. Add <span class="mono">?algo=vigenere</span> or <span class="mono">?algo=aes-gcm</span> to the URL to jump straight to an algorithm.</p>
+        </div>
+
+        <div class="tabs reveal" data-tabs="enc" data-reveal role="tablist">
+          <button class="tab-btn active" data-tab="classical" role="tab">Classical ciphers</button>
+          <button class="tab-btn" data-tab="aes" role="tab">AES-256 (modern)</button>
+          <button class="tab-btn" data-tab="rsa" role="tab">RSA (asymmetric)</button>
+        </div>
+
+        <!-- ================= CLASSICAL ================= -->
+        <div class="tab-panel active" data-tabgroup="enc" data-tabpanel="classical">
+          <div class="field">
+            <label class="label" for="clAlgo">Algorithm</label>
+            <select class="select" id="clAlgo"></select>
+            <p class="strength-label" id="clDesc" style="margin-top:10px"></p>
+          </div>
+
+          <div class="field" id="clKeyField">
+            <label class="label" for="clKey">Key <span class="hint" id="clKeyHint"></span></label>
+            <div class="input-row">
+              <div class="key-field" style="flex:1">
+                <input class="input" id="clKey" type="text" autocomplete="off" spellcheck="false" placeholder="Enter key">
+                <button class="eye" id="clKeyEye" type="button" aria-label="Show or hide key" data-icon="eye"></button>
+              </div>
+              <button class="btn btn-dark" id="clGenKey" type="button" data-icon="refresh">Generate</button>
+            </div>
+          </div>
+
+          <div class="workbench">
+            <div class="panel">
+              <div class="panel-head"><span class="title">Input</span></div>
+              <div class="panel-body">
+                <textarea class="textarea" id="clIn" placeholder="Type or paste your text here…"></textarea>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="panel-head"><span class="title">Result</span>
+                <button class="icon-btn" id="clCopy" type="button" aria-label="Copy result" title="Copy" data-icon="copy"></button>
+              </div>
+              <div class="panel-body">
+                <textarea class="textarea mono" id="clOut" readonly placeholder="The processed text will appear here."></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="actionbar">
+            <button class="btn btn-primary" id="clEncrypt" type="button" data-icon="lock">Encrypt</button>
+            <button class="btn btn-ghost" id="clDecrypt" type="button" data-icon="unlock">Decrypt</button>
+            <button class="btn btn-ghost" id="clSwap" type="button" data-icon="swap">Move result to input</button>
+            <button class="btn btn-ghost" id="clClear" type="button" data-icon="trash">Clear</button>
+            <button class="btn btn-ghost" id="clDownload" type="button" data-icon="download">Download</button>
+          </div>
+          <div class="callout warn mt-2"><strong>Heads up:</strong> classical ciphers are for learning and puzzles only — they are not secure for real data. Use the AES-256 tab for anything sensitive.</div>
+        </div>
+
+        <!-- ================= AES ================= -->
+        <div class="tab-panel" data-tabgroup="enc" data-tabpanel="aes">
+          <div class="grid grid-2">
+            <div class="field">
+              <label class="label" for="aesAlgo">Algorithm</label>
+              <select class="select" id="aesAlgo"></select>
+              <p class="strength-label" id="aesDesc" style="margin-top:10px"></p>
+            </div>
+            <div class="field">
+              <label class="label" for="aesIter">Key derivation strength</label>
+              <select class="select" id="aesIter">
+                <option value="210000">Fast — 210,000 iterations</option>
+                <option value="600000" selected>Balanced — 600,000 iterations</option>
+                <option value="1200000">Strong — 1,200,000 iterations</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label" for="aesPass">Password <span class="hint">used to derive a 256-bit key (PBKDF2-HMAC-SHA256 + random salt)</span></label>
+            <div class="key-field">
+              <input class="input" id="aesPass" type="password" autocomplete="new-password" placeholder="Enter a strong password">
+              <button class="eye" id="aesEye" type="button" aria-label="Show or hide password" data-icon="eye"></button>
+            </div>
+            <div class="strength"><div class="s-bar" id="aesBar"></div></div>
+            <div class="strength-label" id="aesStrength">No password yet</div>
+          </div>
+
+          <div class="field">
+            <label class="label" for="aesFormat">Output format</label>
+            <select class="select" id="aesFormat">
+              <option value="base64" selected>Base64 (recommended for copy/paste)</option>
+              <option value="hex">Hexadecimal</option>
+            </select>
+          </div>
+
+          <div class="workbench">
+            <div class="panel">
+              <div class="panel-head"><span class="title">Input</span></div>
+              <div class="panel-body">
+                <textarea class="textarea" id="aesIn" placeholder="Type or paste the text to encrypt…"></textarea>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="panel-head"><span class="title">Result</span>
+                <button class="icon-btn" id="aesCopy" type="button" aria-label="Copy result" title="Copy" data-icon="copy"></button>
+              </div>
+              <div class="panel-body">
+                <textarea class="textarea mono" id="aesOut" readonly placeholder="Encrypted output or decrypted text appears here."></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="actionbar">
+            <button class="btn btn-primary" id="aesEncrypt" type="button" data-icon="lock">Encrypt</button>
+            <button class="btn btn-ghost" id="aesDecrypt" type="button" data-icon="unlock">Decrypt</button>
+            <button class="btn btn-ghost" id="aesClear" type="button" data-icon="trash">Clear</button>
+            <button class="btn btn-ghost" id="aesDownload" type="button" data-icon="download">Download</button>
+          </div>
+          <div class="callout mt-2"><strong>Tip:</strong> decryption detects both a wrong password and tampered data, so keep the full ciphertext exactly as generated. For files, use the <a href="files.html" class="text-red">Files page</a>.</div>
+        </div>
+
+        <!-- ================= RSA ================= -->
+        <div class="tab-panel" data-tabgroup="enc" data-tabpanel="rsa">
+          <div class="callout warn mb-2"><strong>Keep your private key secret.</strong> Anyone with the private key can read messages encrypted to the matching public key. Generate a fresh pair per recipient.</div>
+
+          <div class="field">
+            <label class="label">Key pair</label>
+            <div class="flex gap-2 wrap items-center">
+              <select class="select" id="rsaBits" style="max-width:220px">
+                <option value="2048" selected>2048-bit (fast)</option>
+                <option value="4096">4096-bit (maximum)</option>
+              </select>
+              <button class="btn btn-primary" id="rsaGen" type="button" data-icon="key">Generate key pair</button>
+            </div>
+          </div>
+
+          <div class="grid grid-2">
+            <div class="panel">
+              <div class="panel-head"><span class="title">Public key</span>
+                <button class="icon-btn" id="rsaPubCopy" type="button" aria-label="Copy public key" title="Copy" data-icon="copy"></button>
+              </div>
+              <div class="panel-body">
+                <textarea class="textarea mono" id="rsaPub" readonly style="min-height:130px" placeholder="Click “Generate key pair”, or paste someone’s public key here to encrypt to it."></textarea>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="panel-head"><span class="title">Private key</span>
+                <button class="icon-btn" id="rsaPrivCopy" type="button" aria-label="Copy private key" title="Copy" data-icon="copy"></button>
+              </div>
+              <div class="panel-body">
+                <textarea class="textarea mono" id="rsaPriv" style="min-height:130px" placeholder="Your private key appears here after generation — or paste one to decrypt."></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex gap-2 wrap mt-2">
+            <button class="btn btn-ghost" id="rsaPubDl" type="button" data-icon="download">Download public key</button>
+            <button class="btn btn-ghost" id="rsaPrivDl" type="button" data-icon="download">Download private key</button>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="field">
+            <label class="label" for="rsaIn">Message <span class="hint">encrypt with the public key · decrypt with the private key</span></label>
+            <textarea class="textarea" id="rsaIn" placeholder="Type the message to encrypt…"></textarea>
+          </div>
+
+          <div class="field">
+            <label class="label" for="rsaOut">Output</label>
+            <div class="input-row">
+              <textarea class="textarea mono" id="rsaOut" readonly style="min-height:110px" placeholder="Base64 ciphertext or recovered plaintext appears here."></textarea>
+              <button class="icon-btn" id="rsaOutCopy" type="button" aria-label="Copy output" title="Copy" data-icon="copy"></button>
+            </div>
+          </div>
+
+          <div class="actionbar">
+            <button class="btn btn-primary" id="rsaEncrypt" type="button" data-icon="lock">Encrypt with public key</button>
+            <button class="btn btn-ghost" id="rsaDecrypt" type="button" data-icon="unlock">Decrypt with private key</button>
+          </div>
+          <div class="callout mt-2"><strong>How it works:</strong> RSA-OAEP splits long messages into key-sized chunks, so there is no practical length limit for text. RSA is slow for big data — for files, share a password instead.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+  <noscript><div class="noscript-note">WinHash needs JavaScript to run — all encryption happens locally in your browser.</div></noscript>
+
+  <script src="assets/js/utils.js"></script>
+  <script src="assets/js/hashes.js"></script>
+  <script src="assets/js/classical.js"></script>
+  <script src="assets/js/modern.js"></script>
+  <script src="assets/js/chrome.js"></script>
+  <script src="assets/js/pages/text.js"></script>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Free Hash Generator Online — MD5, SHA-256, SHA3, RIPEMD — WinHash#</title>
+  <meta name="description" content="Generate MD5, SHA-1, SHA-256, SHA3, RIPEMD-160, CRC32 and FNV-1a hashes from text or files instantly in your browser. Verify integrity and compute HMAC signatures — nothing is uploaded.">
+  <meta name="theme-color" content="#07070a">
+  <link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="site-header"></div>
+
+  <main class="page-main page-body" id="main">
+    <section class="section">
+      <div class="container">
+        <div class="section-head reveal" data-reveal>
+          <span class="kicker">Hash generator</span>
+          <h1 class="section-title">Generate <span class="accent">hashes</span> instantly</h1>
+          <p class="section-sub">Compute 13 hash algorithms from text or files — MD5, SHA-1, SHA-2, SHA3, RIPEMD-160, CRC32 and FNV-1a — plus HMAC signatures. All computed locally with no uploads.</p>
+        </div>
+
+        <div class="tabs reveal" data-tabs="hash" data-reveal role="tablist">
+          <button class="tab-btn active" data-tab="text" role="tab">From text</button>
+          <button class="tab-btn" data-tab="file" role="tab">From a file</button>
+          <button class="tab-btn" data-tab="hmac" role="tab">HMAC signature</button>
+        </div>
+
+        <!-- ================= TEXT ================= -->
+        <div class="tab-panel active" data-tabgroup="hash" data-tabpanel="text">
+          <div class="field">
+            <label class="label" for="htIn">Text to hash</label>
+            <textarea class="textarea" id="htIn" placeholder="Type or paste any text…"></textarea>
+          </div>
+
+          <div class="field">
+            <label class="label" for="htVerify">Verify integrity <span class="hint">paste a hash to check — matches turn green</span></label>
+            <input class="input mono" id="htVerify" type="text" placeholder="Paste an expected hash (any algorithm) and press Enter…">
+          </div>
+
+          <div class="actionbar">
+            <button class="btn btn-primary" id="htRun" type="button" data-icon="hash">Generate hashes</button>
+            <button class="btn btn-ghost" id="htClear" type="button" data-icon="trash">Clear</button>
+          </div>
+
+          <div class="table-wrap mt-2">
+            <table class="table" id="htTable">
+              <thead><tr><th>Algorithm</th><th>Bits</th><th>Hash</th><th></th></tr></thead>
+              <tbody><tr><td colspan="4" class="muted center">Enter text and press “Generate hashes”.</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ================= FILE ================= -->
+        <div class="tab-panel" data-tabgroup="hash" data-tabpanel="file">
+          <div class="dropzone" id="hzDrop" tabindex="0" role="button" aria-label="Choose or drop a file to hash">
+            <div class="dz-icon" data-icon="file" aria-hidden="true"></div>
+            <h3 id="hzTitle">Drop a file here</h3>
+            <p id="hzSub">or click to browse — hashed locally, never uploaded</p>
+            <input type="file" id="hzInput" class="hidden">
+          </div>
+
+          <div class="file-meta mt-2 hidden" id="hzMeta">
+            <div class="fm-icon" data-icon="file" aria-hidden="true"></div>
+            <div style="flex:1;min-width:0">
+              <div class="fm-name" id="hzName">—</div>
+              <div class="fm-sub" id="hzSubInfo">—</div>
+            </div>
+            <button class="icon-btn" id="hzClear" type="button" aria-label="Remove file" title="Remove" data-icon="trash"></button>
+          </div>
+
+          <div class="progress-line hidden mt-2" id="hzProgLine">
+            <div class="progress" style="flex:1"><div class="bar" id="hzBar"></div></div>
+            <span class="pct" id="hzPct">0%</span>
+          </div>
+
+          <div class="table-wrap mt-2">
+            <table class="table" id="hzTable">
+              <thead><tr><th>Algorithm</th><th>Bits</th><th>Hash</th><th></th></tr></thead>
+              <tbody><tr><td colspan="4" class="muted center">Load a file to compute all hashes.</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ================= HMAC ================= -->
+        <div class="tab-panel" data-tabgroup="hash" data-tabpanel="hmac">
+          <div class="grid grid-2">
+            <div class="field">
+              <label class="label" for="hmKey">Secret key</label>
+              <div class="key-field">
+                <input class="input" id="hmKey" type="password" autocomplete="off" placeholder="Enter the secret key">
+                <button class="eye" id="hmEye" type="button" aria-label="Show or hide key" data-icon="eye"></button>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label" for="hmAlgo">Algorithm</label>
+              <select class="select" id="hmAlgo">
+                <option value="hmac_sha256" selected>HMAC-SHA-256 (recommended)</option>
+                <option value="hmac_sha512">HMAC-SHA-512</option>
+                <option value="hmac_sha1">HMAC-SHA-1 (legacy)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label" for="hmMsg">Message</label>
+            <textarea class="textarea" id="hmMsg" placeholder="Type or paste the message to authenticate…"></textarea>
+          </div>
+
+          <div class="actionbar">
+            <button class="btn btn-primary" id="hmRun" type="button" data-icon="key">Compute HMAC</button>
+          </div>
+
+          <div class="field mt-2" id="hmOutField" hidden>
+            <label class="label">HMAC <span class="hint">hex</span></label>
+            <div class="input-row">
+              <input class="input mono" id="hmOut" readonly>
+              <button class="icon-btn" id="hmCopy" type="button" aria-label="Copy HMAC" title="Copy" data-icon="copy"></button>
+            </div>
+          </div>
+          <div class="callout mt-2"><strong>What is HMAC?</strong> A keyed hash that proves a message is authentic and unmodified, using a shared secret. Widely used in APIs, tokens and software signatures.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+  <noscript><div class="noscript-note">WinHash needs JavaScript to run — all hashing happens locally in your browser.</div></noscript>
+
+  <script src="assets/js/utils.js"></script>
+  <script src="assets/js/hashes.js"></script>
+  <script src="assets/js/classical.js"></script>
+  <script src="assets/js/modern.js"></script>
+  <script src="assets/js/chrome.js"></script>
+  <script src="assets/js/pages/hash.js"></script>
+</body>
+</html>

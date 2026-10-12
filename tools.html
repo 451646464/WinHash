@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Free Developer Tools — Password Generator &amp; Encoders — WinHash#</title>
+  <meta name="description" content="Generate strong random passwords with live entropy scoring, and convert text with Base64, HEX and URL encoders — all instantly and privately in your browser.">
+  <meta name="theme-color" content="#07070a">
+  <link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="site-header"></div>
+
+  <main class="page-main page-body" id="main">
+    <section class="section">
+      <div class="container">
+        <div class="section-head reveal" data-reveal>
+          <span class="kicker">Developer tools</span>
+          <h1 class="section-title">Quick <span class="accent">utilities</span></h1>
+          <p class="section-sub">A strong password generator and everyday encoders — Base64, HEX and URL. Everything runs locally and updates live as you type.</p>
+        </div>
+
+        <!-- ============ PASSWORD GENERATOR ============ -->
+        <div class="card reveal" data-reveal>
+          <h2 class="section-title" style="font-size:24px"><span class="accent">#</span> Password generator</h2>
+          <p class="muted mb-2">Cryptographically strong passwords built from your browser’s random source, with live entropy.</p>
+
+          <div class="field">
+            <label class="label" for="pgOut">Generated password</label>
+            <div class="input-row">
+              <input class="input mono" id="pgOut" readonly placeholder="Press Generate…">
+              <button class="icon-btn" id="pgCopy" type="button" aria-label="Copy password" title="Copy" data-icon="copy"></button>
+            </div>
+            <div class="strength"><div class="s-bar" id="pgBar"></div></div>
+            <div class="strength-label" id="pgInfo">—</div>
+          </div>
+
+          <div class="grid grid-2">
+            <div class="field">
+              <label class="label" for="pgLen">Length: <strong id="pgLenVal">20</strong></label>
+              <input type="range" id="pgLen" min="6" max="64" value="20" style="width:100%;accent-color:var(--red)">
+            </div>
+            <div class="field">
+              <label class="label">Character sets</label>
+              <label class="checkbox-line"><input type="checkbox" id="pgUpper" checked> Uppercase (A–Z)</label>
+              <label class="checkbox-line"><input type="checkbox" id="pgLower" checked> Lowercase (a–z)</label>
+              <label class="checkbox-line"><input type="checkbox" id="pgDigits" checked> Digits (0–9)</label>
+              <label class="checkbox-line"><input type="checkbox" id="pgSymbols" checked> Symbols (!@#$…)</label>
+            </div>
+          </div>
+
+          <div class="actionbar">
+            <button class="btn btn-primary" id="pgGen" type="button" data-icon="refresh">Generate password</button>
+          </div>
+        </div>
+
+        <!-- ============ ENCODERS ============ -->
+        <div class="card reveal mt-2" data-reveal>
+          <h2 class="section-title" style="font-size:24px"><span class="accent">#</span> Encoders</h2>
+          <p class="muted mb-2">Convert text between formats instantly. Type in either box — they stay in sync in both directions.</p>
+
+          <div class="field">
+            <label class="label" for="encAlgo">Format</label>
+            <select class="select" id="encAlgo">
+              <option value="base64" selected>Base64</option>
+              <option value="hex">Hexadecimal (UTF-8 bytes)</option>
+              <option value="url">URL encoding</option>
+            </select>
+          </div>
+
+          <div class="grid grid-2">
+            <div class="field">
+              <label class="label" for="encIn">Input</label>
+              <textarea class="textarea mono" id="encIn" placeholder="Type plain text…"></textarea>
+            </div>
+            <div class="field">
+              <label class="label" for="encOut">Output</label>
+              <div class="input-row" style="align-items:flex-start">
+                <textarea class="textarea mono" id="encOut" placeholder="Encoded result appears here…"></textarea>
+                <button class="icon-btn" id="encCopy" type="button" aria-label="Copy output" title="Copy" data-icon="copy"></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="actionbar">
+            <button class="btn btn-ghost" id="encSwap" type="button" data-icon="swap">Decode output → input</button>
+            <button class="btn btn-ghost" id="encClear" type="button" data-icon="trash">Clear</button>
+          </div>
+          <div class="callout mt-2"><strong>Note:</strong> Base64 and HEX are encodings, not encryption — anyone can read them. For real protection use the <a href="text.html" class="text-red">Text encryption</a> or <a href="files.html" class="text-red">Files</a> page.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+  <noscript><div class="noscript-note">WinHash needs JavaScript to run — everything happens locally in your browser.</div></noscript>
+
+  <script src="assets/js/utils.js"></script>
+  <script src="assets/js/hashes.js"></script>
+  <script src="assets/js/classical.js"></script>
+  <script src="assets/js/modern.js"></script>
+  <script src="assets/js/chrome.js"></script>
+  <script src="assets/js/pages/tools.js"></script>
+</body>
+</html>

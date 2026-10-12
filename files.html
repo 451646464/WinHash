@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Encrypt Images, Video &amp; Documents Online — WinHash#</title>
+  <meta name="description" content="Encrypt any file — images, video, audio, PDFs and documents — with AES-256 directly in your browser. Nothing is uploaded. Decrypt back to the original file with one password.">
+  <meta name="theme-color" content="#07070a">
+  <link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="site-header"></div>
+
+  <main class="page-main page-body" id="main">
+    <section class="section">
+      <div class="container">
+        <div class="section-head reveal" data-reveal>
+          <span class="kicker">File encryption</span>
+          <h1 class="section-title">Encrypt <span class="accent">any file</span> locally</h1>
+          <p class="section-sub">Drop an image, video, audio track, PDF or document to turn it into a secure <span class="mono">.wnh</span> container. The original name and type stay encrypted inside. Decryption restores the exact original file — all processed in memory on your device.</p>
+        </div>
+
+        <div class="seg reveal" data-reveal role="tablist" aria-label="File mode">
+          <button class="active" id="modeEncrypt" role="tab" aria-selected="true">Encrypt a file</button>
+          <button id="modeDecrypt" role="tab" aria-selected="false">Decrypt a .wnh file</button>
+        </div>
+
+        <!-- Dropzone -->
+        <div class="dropzone reveal" id="dropzone" data-reveal tabindex="0" role="button" aria-label="Choose or drop a file">
+          <div class="dz-icon" data-icon="file" aria-hidden="true"></div>
+          <h3 id="dzTitle">Drop your file here</h3>
+          <p id="dzSub">or click to browse — images, video, audio, PDF and any document</p>
+          <input type="file" id="fileInput" class="hidden">
+        </div>
+
+        <!-- Selected file info -->
+        <div class="file-meta hidden mt-2" id="fileMeta">
+          <div class="fm-icon" data-icon="file" aria-hidden="true"></div>
+          <div style="flex:1;min-width:0">
+            <div class="fm-name" id="fmName">—</div>
+            <div class="fm-sub" id="fmSub">—</div>
+          </div>
+          <button class="icon-btn" id="fmClear" type="button" aria-label="Remove file" title="Remove" data-icon="trash"></button>
+        </div>
+
+        <!-- Preview (decrypt result) -->
+        <div class="preview-media mt-2 hidden" id="preview"></div>
+
+        <!-- Options -->
+        <div class="card mt-2" id="optionsCard">
+          <div class="grid grid-2">
+            <div class="field">
+              <label class="label" for="algoSelect">Algorithm</label>
+              <select class="select" id="algoSelect"></select>
+              <p class="strength-label" id="algoDesc" style="margin-top:10px"></p>
+            </div>
+            <div class="field">
+              <label class="label" for="iterSelect">Key derivation strength</label>
+              <select class="select" id="iterSelect">
+                <option value="210000">Fast — 210,000 iterations</option>
+                <option value="600000" selected>Balanced — 600,000 iterations</option>
+                <option value="1200000">Strong — 1,200,000 iterations</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label" for="filePass">Password <span class="hint">keep it safe — there is no recovery</span></label>
+            <div class="key-field">
+              <input class="input" id="filePass" type="password" autocomplete="new-password" placeholder="Enter a strong password">
+              <button class="eye" id="fileEye" type="button" aria-label="Show or hide password" data-icon="eye"></button>
+            </div>
+            <div class="strength"><div class="s-bar" id="fileBar"></div></div>
+            <div class="strength-label" id="fileStrength">No password yet</div>
+          </div>
+
+          <div class="flex gap-2 wrap">
+            <button class="btn btn-ghost btn-sm" id="genPass" type="button" data-icon="refresh">Generate password</button>
+            <button class="btn btn-ghost btn-sm" id="copyPass" type="button" data-icon="copy">Copy password</button>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="actionbar">
+            <button class="btn btn-primary btn-lg" id="runBtn" type="button" data-icon="lock">Encrypt file</button>
+            <button class="btn btn-ghost btn-lg hidden" id="downloadBtn" type="button" data-icon="download">Download</button>
+          </div>
+
+          <div class="progress-line hidden" id="progressLine">
+            <div class="progress" style="flex:1"><div class="bar" id="progBar"></div></div>
+            <span class="pct" id="progPct">0%</span>
+          </div>
+        </div>
+
+        <!-- Result summary -->
+        <div class="callout mt-2" id="resultNote" hidden></div>
+
+        <div class="callout warn mt-2"><strong>Remember:</strong> without the exact password the file can never be recovered. Store the password somewhere separate from the encrypted file. Everything here runs offline — try it once and you can disconnect.</div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+  <noscript><div class="noscript-note">WinHash needs JavaScript to run — all encryption happens locally in your browser.</div></noscript>
+
+  <script src="assets/js/utils.js"></script>
+  <script src="assets/js/hashes.js"></script>
+  <script src="assets/js/classical.js"></script>
+  <script src="assets/js/modern.js"></script>
+  <script src="assets/js/chrome.js"></script>
+  <script src="assets/js/pages/files.js"></script>
+</body>
+</html>

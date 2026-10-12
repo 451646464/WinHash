@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About WinHash# — Privacy-First Encryption Toolkit</title>
+  <meta name="description" content="WinHash is a free, open encryption and hashing toolkit that runs entirely in your browser. Learn how it works, what secures it, and who built it.">
+  <meta name="theme-color" content="#07070a">
+  <link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="site-header"></div>
+
+  <main class="page-main page-body" id="main">
+    <section class="section">
+      <div class="container">
+        <div class="section-head reveal" data-reveal>
+          <span class="kicker">About</span>
+          <h1 class="section-title">What is <span class="accent">WinHash#</span>?</h1>
+          <p class="section-sub">WinHash is a complete, privacy-first encryption and hashing toolkit that runs entirely inside your browser. It began as a small desktop utility and grew into a full web platform for protecting text, images, video, audio and documents — with nothing ever sent to a server.</p>
+        </div>
+
+        <div class="grid grid-2 reveal" data-reveal>
+          <div class="card">
+            <div class="card-icon" data-icon="shield" aria-hidden="true"></div>
+            <h3>Privacy by design</h3>
+            <p>There is no backend. Every operation uses the browser’s built-in Web Crypto API, so your files and passwords stay on your device. You can go offline and it still works.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon" data-icon="layers" aria-hidden="true"></div>
+            <h3>Broad coverage</h3>
+            <p>Classical ciphers for learning, AES-256 and ChaCha20 for real encryption, RSA for asymmetric use, and 13 hash algorithms for integrity and signatures.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon" data-icon="bolt" aria-hidden="true"></div>
+            <h3>Strong crypto standards</h3>
+            <p>Keys are derived with PBKDF2-HMAC-SHA256 at 600,000 iterations with random salts. Authenticated modes detect tampering and wrong passwords safely.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon" data-icon="book" aria-hidden="true"></div>
+            <h3>Open &amp; documented</h3>
+            <p>The file format is a documented binary container (<span class="mono">.wnh</span>) and the code is open source, so you can verify exactly how your data is handled.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECURITY NOTICE -->
+    <section class="section section-sm" id="security">
+      <div class="container">
+        <div class="section-head reveal" data-reveal>
+          <span class="kicker">Security notice</span>
+          <h2 class="section-title">Read this <span class="accent">before relying on it</span></h2>
+        </div>
+        <div class="callout warn reveal" data-reveal>
+          <p><strong>WinHash is provided for education and convenience.</strong> It uses well-known, standard algorithms, but no tool can guarantee absolute security. For high-stakes or professional use, consider a formally audited solution and keep your passwords and keys in a reputable password manager.</p>
+          <p class="mt-2"><strong>Key points:</strong></p>
+          <ul style="margin:8px 0 0 20px; color:var(--muted); line-height:1.9">
+            <li>Classical ciphers (Caesar, Vigenère, Rail Fence, etc.) are <strong>educational only</strong> — never use them for real secrets.</li>
+            <li><strong>MD5 and SHA-1 are broken</strong> for security purposes; they remain only for legacy compatibility and checksums.</li>
+            <li>CRC32 and FNV-1a are <strong>checksums</strong>, not encryption — they provide no secrecy.</li>
+            <li>If you lose your password or private key, encrypted data <strong>cannot be recovered</strong> — by design.</li>
+            <li>The <span class="mono">.wnh</span> container protects file contents and metadata, but the file <em>size</em> is still visible to observers.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEVELOPER -->
+    <section class="section section-sm" id="dev">
+      <div class="container">
+        <div class="section-head reveal" data-reveal>
+          <span class="kicker">Developer</span>
+          <h2 class="section-title">Built by <span class="accent">Rakan Almoliki</span></h2>
+        </div>
+        <div class="card reveal" data-reveal>
+          <p>WinHash was designed and developed by <strong>Rakan Almoliki</strong>. It started as a Python/Tkinter desktop interface and was rebuilt from the ground up as a modern, responsive web application using plain HTML, CSS and JavaScript with the Web Crypto API — so it needs no installation, account or server.</p>
+          <div class="flex gap-2 wrap mt-2">
+            <a class="btn btn-primary" href="https://github.com/451646464/encrption_interface" target="_blank" rel="noopener" data-icon="github">View source on GitHub</a>
+            <a class="btn btn-ghost" href="mailto:rakanalmoliki33@gmail.com" data-icon="mail">Contact the developer</a>
+          </div>
+          <div class="divider"></div>
+          <p class="muted">Tech stack: vanilla JavaScript, Web Crypto API, hand-crafted HTML5 &amp; CSS3. No frameworks, no trackers, no cookies — just a fast, self-contained tool.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+  <noscript><div class="noscript-note">WinHash needs JavaScript to run.</div></noscript>
+
+  <script src="assets/js/utils.js"></script>
+  <script src="assets/js/hashes.js"></script>
+  <script src="assets/js/classical.js"></script>
+  <script src="assets/js/modern.js"></script>
+  <script src="assets/js/chrome.js"></script>
+</body>
+</html>
